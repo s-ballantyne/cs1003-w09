@@ -68,7 +68,7 @@ public class Parser {
 
 		// Secret Java operator "-->"
 		// Minimum 250 IQ required to understand this
-		while (spaces-- > 0) {
+		while (spaces --> 0) {
 			sb.append(" ");
 		}
 
