@@ -4,9 +4,11 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.StringReader;
 
 public class Parser {
 	private String path;
+	private String data;
 
 	private boolean isValid;
 
@@ -16,13 +18,25 @@ public class Parser {
 	private String header;
 	private String output;
 
-	public Parser(/*@NotNull*/ String path) {
+	public Parser(String path) {
 		this.path = path;
 		this.isValid = false;
 	}
 
+	// Tfw no default arguments
+	public Parser(String data, boolean not_a_file) {
+		this.path = "";
+		this.data = data;
+		this.isValid = false;
+	}
+
 	public boolean parse() {
-		try (JsonReader r = Json.createReader(new FileReader(path))) {
+		try (JsonReader r = Json.createReader(
+				path.isEmpty()
+						? new StringReader(data)
+						: new FileReader(path)
+		)
+		) {
 			main = r.readObject();
 		} catch (FileNotFoundException e) {
 			System.out.printf("File not found: %s\n", path);
@@ -63,7 +77,7 @@ public class Parser {
 	}
 
 	// Internal, do not call
-	private void AppendTopic(StringBuilder sb, /*@NotNull*/ JsonObject o, int spaces) {
+	private void AppendTopic(StringBuilder sb, JsonObject o, int spaces) {
 		if (o.get("Text") == null) return;
 
 		// Secret Java operator "-->"

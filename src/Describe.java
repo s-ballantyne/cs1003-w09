@@ -2,7 +2,7 @@
 // https://studres.cs.st-andrews.ac.uk/CS1003/Practicals/W09/W09.pdf
 
 public class Describe {
-	private static String Usage = "java -cp .:javax.json-1.0.jar Describe file.json";
+	private static final String Usage = "java -cp .:javax.json-1.0.jar Describe file.json";
 
 	public static void main(String[] args) {
 		if (args.length != 1) {

@@ -5,9 +5,22 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Rest {
-	private boolean Verbose = true;
+	private static final boolean Verbose = false;
 
-	private String Exec(String str) throws IOException {
+	public static String DoQuery(String str) {
+		String res;
+
+		try {
+			res = Exec(str);
+		} catch (Exception e) {
+			System.out.println("REST: " + e.getMessage());
+			res = "";
+		}
+
+		return res;
+	}
+
+	private static String Exec(String str) throws IOException {
 		URL url = new URL(str);
 
 		HttpURLConnection conn = (HttpURLConnection)
